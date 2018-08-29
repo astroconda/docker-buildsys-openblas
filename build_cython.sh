@@ -2,24 +2,22 @@
 set -e
 set -x
 
+name="cython"
 version="0.28.5"
 tarball="${version}.tar.gz"
-dest="cython-${version}" # Ugh.
-url="http://github.com/cython/cython/archive/${tarball}"
+dest="${name}-${version}" # Ugh.
+url="http://github.com/cython/${name}/archive/${tarball}"
 export PATH_OLD="${PATH}"
 
 if [[ ! $1 ]]; then
     echo No argument passed. Need a version.
     exit 1
 fi
-export pylon="/opt/$1/bin"
+export py_dest="/opt/$1/bin"
 
 function pre()
 {
-    export PATH="${pylon}:${PATH_OLD}"
-    export OPENBLAS_ROOT="/opt/OpenBLAS"
-    export PKG_CONFIG_PATH="${OPENBLAS_ROOT}/lib/pkgconfig:${PKG_CONFIG_PATH}"
-    export LDFLAGS="-Wl,-rpath=${OPENBLAS_ROOT}/lib"
+    export PATH="${py_dest}:${PATH_OLD}"
 
     curl -LO "${url}"
     tar xf "${tarball}"
