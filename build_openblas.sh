@@ -20,7 +20,7 @@ function build()
     pre
     pushd "${dest}"
         export LDFLAGS="-Wl,-rpath=$prefix/lib"
-        make USE_OPENMP=1
+        make USE_OPENMP=1 NUM_THREADS=64
         make install PREFIX="${prefix}" NO_STATIC=1
     popd
     post
